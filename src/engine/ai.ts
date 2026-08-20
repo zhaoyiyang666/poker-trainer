@@ -44,6 +44,8 @@ export interface AiContext {
   activePlayers: number;
   /** 位置强弱 0-1，越大越靠后（越有利） */
   positionStrength: number;
+  /** 该 AI 在当前下注轮已加注的次数（用于限制激进 AI 连续加注） */
+  streetRaiseCount: number;
 }
 
 interface Profile {
@@ -93,6 +95,9 @@ const PROFILES: Record<AiDifficulty, Profile> = {
   },
 };
 
+/** 激进 AI 同一下注轮的连续加注上限，超过后不再加注，避免无休止的加注战。 */
+export const MAX_AGGRESSIVE_STREET_RAISES = 3;
+
 /**
  * 计算 AI 的行动。确定性主导，仅在“边界情况”用小幅随机制造混合策略，
  * 且随机源可注入以便测试。
@@ -105,10 +110,32 @@ export function decideAiAction(
   const p = PROFILES[difficulty];
   const canCheck = ctx.toCall <= 0;
 
-  if (ctx.street === 'preflop') {
-    return decidePreflop(ctx, p, canCheck, rand);
+  const action =
+    ctx.street === 'preflop'
+      ? decidePreflop(ctx, p, canCheck, rand)
+      : decidePostflop(ctx, p, canCheck, rand);
+
+  // 约束：激进 AI 本轮加注已达上限时，将“再加注”降级为跟注/过牌
+  if (
+    difficulty === 'aggressive' &&
+    action.type === 'raise' &&
+    ctx.streetRaiseCount >= MAX_AGGRESSIVE_STREET_RAISES
+  ) {
+    if (canCheck) {
+      return {
+        type: 'check',
+        amount: 0,
+        reason: `本轮已连续加注 ${ctx.streetRaiseCount} 次，达到激进加注上限，改为过牌控制节奏。`,
+      };
+    }
+    return {
+      type: 'call',
+      amount: ctx.toCall,
+      reason: `本轮已连续加注 ${ctx.streetRaiseCount} 次，达到激进加注上限，改为跟注而非继续加注。`,
+    };
   }
-  return decidePostflop(ctx, p, canCheck, rand);
+
+  return action;
 }
 
 function decidePreflop(

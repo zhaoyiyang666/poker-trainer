@@ -22,6 +22,7 @@ function baseCtx(overrides: Partial<AiContext>): AiContext {
     bigBlind: 20,
     activePlayers: 3,
     positionStrength: 0.5,
+    streetRaiseCount: 0,
     ...overrides,
   };
 }
@@ -74,5 +75,39 @@ describe('AI 决策 decideAiAction', () => {
     if (a.type === 'raise') {
       expect(a.amount).toBeLessThanOrEqual(40);
     }
+  });
+
+  it('激进 AI 本轮加注达 3 次后不再加注（降级为跟注）', () => {
+    const a = decideAiAction(
+      baseCtx({ hole: parseCards('As Ah'), streetRaiseCount: 3 }),
+      'aggressive',
+      makeRng(2)
+    );
+    expect(a.type).not.toBe('raise');
+    expect(a.type).toBe('call');
+  });
+
+  it('激进 AI 本轮加注达上限且可过牌时选择过牌', () => {
+    const a = decideAiAction(
+      baseCtx({
+        hole: parseCards('As Ah'),
+        board: parseCards('Ad Kc 7h'),
+        street: 'flop',
+        toCall: 0,
+        streetRaiseCount: 3,
+      }),
+      'aggressive',
+      makeRng(2)
+    );
+    expect(a.type).toBe('check');
+  });
+
+  it('未达上限时激进 AI 仍可正常加注', () => {
+    const a = decideAiAction(
+      baseCtx({ hole: parseCards('As Ah'), streetRaiseCount: 2 }),
+      'aggressive',
+      makeRng(2)
+    );
+    expect(a.type).toBe('raise');
   });
 });

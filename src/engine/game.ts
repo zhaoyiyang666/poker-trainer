@@ -582,6 +582,9 @@ export function computeAiActionForState(
 
   const toCall = state.currentBet - pl.committedThisStreet;
   const position = positionStrength(state, idx);
+  const streetRaiseCount = state.log.filter(
+    (l) => l.street === state.street && l.playerId === idx && l.action === 'raise'
+  ).length;
 
   const ai = decideAiAction(
     {
@@ -595,6 +598,7 @@ export function computeAiActionForState(
       bigBlind: state.bigBlind,
       activePlayers: state.players.filter((p) => !p.folded).length,
       positionStrength: position,
+      streetRaiseCount,
     },
     pl.difficulty,
     rand
@@ -615,6 +619,9 @@ export function explainAiAction(
   const pl = state.players[idx];
   if (!pl.difficulty) return '';
   const toCall = state.currentBet - pl.committedThisStreet;
+  const streetRaiseCount = state.log.filter(
+    (l) => l.street === state.street && l.playerId === idx && l.action === 'raise'
+  ).length;
   return decideAiAction(
     {
       hole: pl.hole,
@@ -627,6 +634,7 @@ export function explainAiAction(
       bigBlind: state.bigBlind,
       activePlayers: state.players.filter((p) => !p.folded).length,
       positionStrength: positionStrength(state, idx),
+      streetRaiseCount,
     },
     pl.difficulty,
     rand
