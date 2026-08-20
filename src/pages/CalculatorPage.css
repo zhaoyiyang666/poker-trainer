@@ -1,0 +1,100 @@
+.calc-cards {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.opp-selector {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+}
+
+.opp-cell {
+  padding: 12px 0;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.opp-cell.active {
+  border-color: var(--accent);
+  background: rgba(109, 139, 255, 0.14);
+  color: var(--accent);
+}
+
+.result-card {
+  padding: 16px;
+}
+
+.equity-bar {
+  display: flex;
+  height: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-elev);
+  margin-bottom: 14px;
+}
+
+.equity-seg {
+  transition: width 0.4s ease;
+}
+
+.equity-seg.win {
+  background: var(--accent);
+}
+.equity-seg.tie {
+  background: var(--warn);
+}
+.equity-seg.lose {
+  background: var(--danger);
+}
+
+.equity-legend {
+  display: flex;
+  justify-content: space-around;
+}
+
+.result-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.result-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.result-dot.win {
+  background: var(--accent);
+}
+.result-dot.tie {
+  background: var(--warn);
+}
+.result-dot.lose {
+  background: var(--danger);
+}
+
+.result-value {
+  font-size: 22px;
+  font-weight: 800;
+}
+.result-value.win {
+  color: var(--accent);
+}
+.result-value.tie {
+  color: var(--warn);
+}
+.result-value.lose {
+  color: var(--danger);
+}
+
+.interpret {
+  font-size: 13.5px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}

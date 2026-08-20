@@ -1,0 +1,139 @@
+.quiz-modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.opt-sub {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.opt-btn.active .opt-sub {
+  color: var(--accent);
+}
+
+.quiz-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.quiz-progress-text {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.quiz-tags {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.quiz-scenario {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.quiz-cards-block {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+
+.quiz-cards-label {
+  font-size: 12px;
+  color: var(--text-mute);
+  margin-bottom: 6px;
+}
+
+.quiz-cards {
+  display: flex;
+  gap: 6px;
+}
+
+.quiz-pot {
+  background: var(--bg-elev);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 13.5px;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.quiz-choices {
+  display: flex;
+  gap: 10px;
+}
+
+.quiz-choice {
+  flex: 1;
+  padding: 18px 0;
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  border: 1.5px solid var(--line);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 16px;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+.quiz-choice:active {
+  transform: scale(0.97);
+}
+
+.quiz-choice.correct {
+  border-color: var(--accent);
+  background: rgba(109, 139, 255, 0.16);
+  color: var(--accent);
+}
+
+.quiz-choice.wrong {
+  border-color: var(--danger);
+  background: rgba(217, 105, 79, 0.16);
+  color: var(--danger);
+}
+
+.quiz-choice.dim {
+  opacity: 0.4;
+}
+
+.quiz-choice .mark {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 14px;
+}
+
+.quiz-verdict {
+  text-align: center;
+  font-weight: 800;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  margin: 14px 0;
+}
+
+.quiz-verdict.ok {
+  background: rgba(109, 139, 255, 0.12);
+  color: var(--accent);
+}
+
+.quiz-verdict.no {
+  background: rgba(217, 105, 79, 0.12);
+  color: var(--danger);
+}
+
+.quiz-explain {
+  font-size: 14px;
+  line-height: 1.65;
+  margin-top: 4px;
+}

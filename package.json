@@ -1,0 +1,29 @@
+{
+  "name": "poker-trainer",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "德扑训练大师 - 纯学习练习工具 (Texas Hold'em practice trainer, learning-only)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "serve": "vite preview --host --port 4173",
+    "icons": "python3 scripts/gen_icons.py",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.3",
+    "vitest": "^2.0.5"
+  }
+}

@@ -1,0 +1,113 @@
+.pcard {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #f6f7fb 0%, #e6e8f0 100%);
+  border-radius: 6px;
+  font-weight: 800;
+  line-height: 1;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(109, 139, 255, 0.25);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.pcard-sm {
+  width: 30px;
+  height: 42px;
+  border-radius: 4px;
+}
+.pcard-sm .pcard-rank {
+  font-size: 15px;
+}
+.pcard-sm .pcard-suit {
+  font-size: 13px;
+}
+
+.pcard-md {
+  width: 42px;
+  height: 60px;
+}
+.pcard-md .pcard-rank {
+  font-size: 21px;
+}
+.pcard-md .pcard-suit {
+  font-size: 17px;
+}
+
+.pcard-lg {
+  width: 54px;
+  height: 76px;
+  border-radius: 8px;
+}
+.pcard-lg .pcard-rank {
+  font-size: 27px;
+}
+.pcard-lg .pcard-suit {
+  font-size: 22px;
+}
+
+.pcard-red {
+  color: #e5484d;
+}
+.pcard-black {
+  color: #1a1a22;
+}
+
+.pcard-rank {
+  font-weight: 800;
+}
+.pcard-suit {
+  margin-top: 2px;
+}
+
+.pcard-dim {
+  opacity: 0.45;
+  filter: grayscale(0.4);
+}
+
+.pcard-clickable {
+  cursor: pointer;
+  transition: transform 0.08s ease;
+}
+.pcard-clickable:active {
+  transform: scale(0.94);
+}
+
+.pcard-selected {
+  outline: 3px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* 牌背：蓝紫渐变 + 斜纹 */
+.pcard-back {
+  background: linear-gradient(135deg, #3a4890, #1a1f3d);
+  border: 2px solid #4a5aa8;
+}
+.pcard-back-pattern {
+  position: absolute;
+  inset: 4px;
+  border-radius: 4px;
+  background-image: repeating-linear-gradient(
+      45deg,
+      rgba(174, 189, 255, 0.16) 0,
+      rgba(174, 189, 255, 0.16) 2px,
+      transparent 2px,
+      transparent 7px
+    ),
+    radial-gradient(circle at center, rgba(138, 162, 255, 0.28) 0%, transparent 62%);
+  border: 1px solid rgba(138, 162, 255, 0.4);
+}
+
+/* 空槽 */
+.pcard-slot {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px dashed var(--text-mute);
+  box-shadow: none;
+  color: var(--text-mute);
+}
+.pcard-slot-label {
+  font-size: 20px;
+  font-weight: 400;
+}

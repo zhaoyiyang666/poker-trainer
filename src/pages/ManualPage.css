@@ -1,0 +1,59 @@
+.rank-card {
+  padding: 14px;
+}
+
+.rank-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.rank-index {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  color: #eafff2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.rank-name {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.rank-en {
+  font-size: 12px;
+  color: var(--text-mute);
+}
+
+.rank-cards {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.rank-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.manual-title {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+
+.manual-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
