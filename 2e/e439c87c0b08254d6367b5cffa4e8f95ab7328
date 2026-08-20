@@ -1,0 +1,29 @@
+src/engine/ai.ts
+  s_fcc0d7709ce482::t_e106aa05124e68 47-48
+  s_fcc0d7709ce482::t_5bd000932590e5 113-135,137-138
+  s_fcc0d7709ce482::t_fe5efae2d8ac1b 98-100
+src/engine/game.ts
+  s_fcc0d7709ce482::t_32d9b16ff3d09c 585-587,601
+  s_fcc0d7709ce482::t_6e2142b0d49b09 622-624,637
+src/engine/ai.test.ts
+  s_fcc0d7709ce482::t_9501db978685b7 79-112
+  s_fcc0d7709ce482::t_d79a2bce3c920b 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "2ee439c87c0b08254d6367b5cffa4e8f95ab7328",
+  "prompts": {},
+  "sessions": {
+    "s_fcc0d7709ce482": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a86ae45a5b8204bf8f278b8",
+        "model": "openrouter-3o__dev"
+      },
+      "human_author": "unknown"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
