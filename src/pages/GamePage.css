@@ -256,9 +256,9 @@
   color: var(--gold);
 }
 
-/* 操作区：底部预留固定 TAB 栏高度，避免被遮挡 */
+/* 操作区 */
 .action-zone {
-  padding: 12px 14px calc(var(--nav-h) + 16px + var(--safe-bottom));
+  padding: 12px 14px calc(16px + var(--safe-bottom));
   min-height: 96px;
 }
 
