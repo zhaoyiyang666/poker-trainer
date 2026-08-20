@@ -159,6 +159,17 @@ function Table({
   const heroIdx = state.players.findIndex((p) => p.isHero);
   const others = state.players.filter((p) => !p.isHero);
 
+  // 与引擎 postBlinds 同规则推导大小盲座位（单挑时按钮为 SB）
+  const activeCount = state.players.filter((p) => !p.folded).length;
+  const n = state.players.length;
+  const isHeadsUp = activeCount === 2;
+  const sbIndex = isHeadsUp ? state.buttonIndex : (state.buttonIndex + 1) % n;
+  const bbIndex = isHeadsUp
+    ? (state.buttonIndex + 1) % n
+    : (state.buttonIndex + 2) % n;
+  const blindOf = (id: number): 'SB' | 'BB' | undefined =>
+    id === sbIndex ? 'SB' : id === bbIndex ? 'BB' : undefined;
+
   const nextHand = () => {
     const carry = state.players.map((p) => p.stack);
     game.startNext(carry);
@@ -196,6 +207,7 @@ function Table({
                 isActive={state.toActIndex === p.id && state.phase === 'betting'}
                 showCards={state.phase === 'handComplete' && !p.folded}
                 isButton={state.buttonIndex === p.id}
+                blind={blindOf(p.id)}
               />
             ))}
           </div>
@@ -222,6 +234,7 @@ function Table({
               player={hero}
               isActive={game.heroTurn}
               isButton={state.buttonIndex === heroIdx}
+              blind={blindOf(heroIdx)}
             />
           </div>
         </div>
@@ -260,11 +273,13 @@ function SeatView({
   isActive,
   showCards,
   isButton,
+  blind,
 }: {
   player: Player;
   isActive: boolean;
   showCards: boolean;
   isButton: boolean;
+  blind?: 'SB' | 'BB';
 }) {
   return (
     <div className={`seat ${player.folded ? 'folded' : ''} ${isActive ? 'active' : ''}`}>
@@ -276,6 +291,7 @@ function SeatView({
         <div className="seat-name">
           {player.name}
           {isButton && <span className="dealer-btn">D</span>}
+          {blind && <span className={`blind-btn ${blind === 'BB' ? 'bb' : 'sb'}`}>{blind}</span>}
         </div>
         <div className="seat-stack">{player.stack}</div>
       </div>
@@ -292,10 +308,12 @@ function HeroSeat({
   player,
   isActive,
   isButton,
+  blind,
 }: {
   player: Player;
   isActive: boolean;
   isButton: boolean;
+  blind?: 'SB' | 'BB';
 }) {
   return (
     <div className={`hero-seat ${isActive ? 'active' : ''} ${player.folded ? 'folded' : ''}`}>
@@ -307,6 +325,7 @@ function HeroSeat({
         <div className="seat-name">
           {player.name}
           {isButton && <span className="dealer-btn">D</span>}
+          {blind && <span className={`blind-btn ${blind === 'BB' ? 'bb' : 'sb'}`}>{blind}</span>}
         </div>
         <div className="hero-stack">{player.stack}</div>
         {player.lastAction && (
@@ -333,12 +352,27 @@ function ActionBar({
   const [showRaise, setShowRaise] = useState(false);
 
   if (showRaise && actions.canRaise) {
+    const commit = (v: number) =>
+      setRaiseTo(Math.min(max, Math.max(min, Math.round(v))));
     return (
       <div className="raise-panel">
         <div className="raise-head">
           <span>加注至</span>
-          <span className="raise-amount">{current}</span>
+          <input
+            className="raise-input"
+            type="number"
+            inputMode="numeric"
+            min={min}
+            max={max}
+            value={current}
+            onChange={(e) => {
+              if (e.target.value === '') return;
+              setRaiseTo(Number(e.target.value));
+            }}
+            onBlur={(e) => commit(Number(e.target.value) || min)}
+          />
         </div>
+        <div className="raise-range">可加注区间 {min} ~ {max}</div>
         <input
           type="range"
           min={min}

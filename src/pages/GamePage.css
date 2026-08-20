@@ -165,6 +165,31 @@
   font-weight: 800;
 }
 
+/* 大小盲徽标 */
+.blind-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 15px;
+  padding: 0 3px;
+  margin-left: 3px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.blind-btn.sb {
+  background: rgba(109, 139, 255, 0.22);
+  color: #aebdff;
+  border: 1px solid rgba(109, 139, 255, 0.55);
+}
+.blind-btn.bb {
+  background: rgba(255, 92, 138, 0.22);
+  color: #ff9db8;
+  border: 1px solid rgba(255, 92, 138, 0.55);
+}
+
 .seat-action {
   position: absolute;
   bottom: -8px;
@@ -316,10 +341,35 @@
   margin-bottom: 12px;
 }
 
-.raise-amount {
+.raise-input {
+  width: 120px;
+  text-align: right;
   font-size: 24px;
   font-weight: 800;
   color: var(--gold);
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.raise-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(109, 139, 255, 0.25);
+}
+.raise-input::-webkit-outer-spin-button,
+.raise-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.raise-range {
+  font-size: 11px;
+  color: var(--text-mute);
+  text-align: right;
+  margin: -6px 2px 6px 0;
 }
 
 .raise-quick {
