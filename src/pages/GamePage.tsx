@@ -230,7 +230,7 @@ function Table({
       {/* 操作区 / 结算区 */}
       <div className="action-zone">
         {state.phase === 'handComplete' ? (
-          <ReviewPanel game={game} onNext={nextHand} />
+          <div className="waiting">本手结束 · 查看结算</div>
         ) : game.heroTurn ? (
           <ActionBar
             game={game}
@@ -243,6 +243,10 @@ function Table({
           </div>
         )}
       </div>
+
+      {state.phase === 'handComplete' && (
+        <ReviewPanel game={game} hero={hero} onNext={nextHand} />
+      )}
 
       {showLog && (
         <LogModal state={state} onClose={() => setShowLog(false)} />
@@ -419,9 +423,11 @@ function ActionBar({
 
 function ReviewPanel({
   game,
+  hero,
   onNext,
 }: {
   game: ReturnType<typeof useGame>;
+  hero: Player;
   onNext: () => void;
 }) {
   const { state, review } = game;
@@ -444,54 +450,80 @@ function ReviewPanel({
   const shown = state.showdown?.filter((e) => e.hand) ?? [];
 
   return (
-    <div className="review-panel">
-      <div className="review-head">
-        <span className={`review-result ${resultClass}`}>{resultLabel}</span>
-        <span className={review.heroNet >= 0 ? 'text-accent' : 'text-danger'}>
-          {review.heroNet >= 0 ? '+' : ''}
-          {review.heroNet} 筹码
-        </span>
-      </div>
+    <div className="modal-backdrop review-backdrop">
+      <div className="modal review-modal fade-in">
+        <div className="review-head">
+          <span className={`review-result ${resultClass}`}>{resultLabel}</span>
+          <span className={review.heroNet >= 0 ? 'text-accent' : 'text-danger'}>
+            {review.heroNet >= 0 ? '+' : ''}
+            {review.heroNet} 筹码
+          </span>
+        </div>
 
-      {shown.length > 0 && (
-        <div className="review-hands">
-          {shown.map((e) => (
-            <div key={e.playerId} className="review-hand-row">
-              <span className="review-hand-name">{e.name}</span>
-              <span className="review-hand-cards">
-                {e.hole.map((c, i) => (
-                  <PlayingCard key={i} card={c} size="sm" />
-                ))}
-              </span>
-              <span className="review-hand-type">
-                {e.hand ? CATEGORY_LABELS[e.hand.category] : ''}
-                {e.won > 0 && <span className="badge badge-accent" style={{ marginLeft: 6 }}>赢 {e.won}</span>}
-              </span>
+        {/* 我的牌：每局都展示，无论输赢/弃牌 */}
+        <div className="review-myhand">
+          <div className="review-myhand-block">
+            <div className="review-myhand-label">我的手牌</div>
+            <div className="review-myhand-cards">
+              <PlayingCard card={hero.hole[0]} size="sm" />
+              <PlayingCard card={hero.hole[1]} size="sm" />
             </div>
-          ))}
+          </div>
+          <div className="review-myhand-block">
+            <div className="review-myhand-label">公共牌</div>
+            <div className="review-myhand-cards">
+              {[0, 1, 2, 3, 4].map((i) => (
+                <PlayingCard
+                  key={i}
+                  card={state.board[i]}
+                  faceDown={!state.board[i]}
+                  size="sm"
+                />
+              ))}
+            </div>
+          </div>
         </div>
-      )}
 
-      {review.potOddsNote && (
+        {shown.length > 0 && (
+          <div className="review-hands">
+            {shown.map((e) => (
+              <div key={e.playerId} className="review-hand-row">
+                <span className="review-hand-name">{e.name}</span>
+                <span className="review-hand-cards">
+                  {e.hole.map((c, i) => (
+                    <PlayingCard key={i} card={c} size="sm" />
+                  ))}
+                </span>
+                <span className="review-hand-type">
+                  {e.hand ? CATEGORY_LABELS[e.hand.category] : ''}
+                  {e.won > 0 && <span className="badge badge-accent" style={{ marginLeft: 6 }}>赢 {e.won}</span>}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {review.potOddsNote && (
+          <div className="review-note">
+            <div className="review-note-label">📐 底池赔率</div>
+            {review.potOddsNote}
+          </div>
+        )}
+
         <div className="review-note">
-          <div className="review-note-label">📐 底池赔率</div>
-          {review.potOddsNote}
+          <div className="review-note-label">🔍 决策点评</div>
+          {review.feedback}
         </div>
-      )}
 
-      <div className="review-note">
-        <div className="review-note-label">🔍 决策点评</div>
-        {review.feedback}
+        <div className="review-note accent">
+          <div className="review-note-label">💡 策略建议</div>
+          {review.suggestion}
+        </div>
+
+        <button className="btn btn-accent btn-block" onClick={onNext} style={{ marginTop: 4 }}>
+          下一手
+        </button>
       </div>
-
-      <div className="review-note accent">
-        <div className="review-note-label">💡 策略建议</div>
-        {review.suggestion}
-      </div>
-
-      <button className="btn btn-accent btn-block" onClick={onNext} style={{ marginTop: 4 }}>
-        下一手
-      </button>
     </div>
   );
 }

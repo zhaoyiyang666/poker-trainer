@@ -329,14 +329,45 @@
   margin: 12px 0;
 }
 
-/* 结算点评 */
-.review-panel {
-  background: var(--bg-card);
+/* 结算点评：全屏居中弹层 */
+.review-backdrop {
+  z-index: 120;
+}
+
+.review-modal {
+  max-width: 420px;
+}
+
+/* 我的牌区块：每局固定展示 */
+.review-myhand {
+  background: var(--bg-elev);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 14px;
-  max-height: 46vh;
-  overflow-y: auto;
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.review-myhand-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.review-myhand-label {
+  width: 52px;
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--text-mute);
+  font-weight: 600;
+}
+
+.review-myhand-cards {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
 }
 
 .review-head {
