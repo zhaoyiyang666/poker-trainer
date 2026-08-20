@@ -1,0 +1,66 @@
+README.md
+  s_fcc0d7709ce482::t_177e050c6a0f89 1-91 gitai:{"mixed_line_ranges":[],"operations":[{"operation_id":"6a86d36da5b8204bf8f27c3e","tool_type":"agent","tool_id":"Write","line_ranges":[{"Range":[1,91]}]}]}
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4d87fe50ab7a4255446f647c31d58b1f124d96e1",
+  "prompts": {},
+  "sessions": {
+    "s_fcc0d7709ce482": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a86ae45a5b8204bf8f278b8",
+        "model": "openrouter-3o__dev"
+      },
+      "human_author": "unknown"
+    }
+  },
+  "attestation_metadata": {
+    "README.md": [
+      {
+        "hash": "s_fcc0d7709ce482::t_177e050c6a0f89",
+        "line_ranges": [
+          {
+            "Range": [
+              1,
+              91
+            ]
+          }
+        ],
+        "mixed_line_ranges": [],
+        "operations": [
+          {
+            "operation_id": "6a86d36da5b8204bf8f27c3e",
+            "tool_type": "agent",
+            "tool_id": "Write",
+            "line_ranges": [
+              {
+                "Range": [
+                  1,
+                  91
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "remote_transcripts": {
+    "s_fcc0d7709ce482": {
+      "tool": "trae",
+      "conversation_id": "6a86ae45a5b8204bf8f278b8",
+      "session_id": "6a86ae45a5b8204bf8f278b8",
+      "status": "remote_only",
+      "message": "Remote transcript resolution is not implemented yet for TRAE prompts."
+    },
+    "s_fcc0d7709ce482::t_177e050c6a0f89": {
+      "tool": "trae",
+      "conversation_id": "6a86ae45a5b8204bf8f278b8",
+      "session_id": "6a86ae45a5b8204bf8f278b8",
+      "status": "remote_only",
+      "message": "Remote transcript resolution is not implemented yet for TRAE prompts."
+    }
+  }
+}
