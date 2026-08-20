@@ -56,8 +56,11 @@
 .game-wrap {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-height: 0;
   height: 100%;
-  min-height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .game-top {
@@ -253,9 +256,9 @@
   color: var(--gold);
 }
 
-/* 操作区 */
+/* 操作区：底部预留固定 TAB 栏高度，避免被遮挡 */
 .action-zone {
-  padding: 12px 14px calc(16px + var(--safe-bottom));
+  padding: 12px 14px calc(var(--nav-h) + 16px + var(--safe-bottom));
   min-height: 96px;
 }
 
