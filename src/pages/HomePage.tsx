@@ -53,7 +53,7 @@ export function HomePage() {
     <div className="page fade-in">
       <div className="home-header">
         <div className="home-brand-wrap">
-          <span className="home-seal">T</span>
+          <span className="home-seal">🃏</span>
           <div>
             <div className="home-brand">德扑训练大师</div>
             <div className="home-slogan">科学练德扑，只学不博弈</div>
